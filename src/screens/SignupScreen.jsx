@@ -38,7 +38,7 @@ function SignupScreen() {
       passwordRef.current.value
     )
       .then((authUser) => {
-        console.log(authUser);
+        //user is signed in
       })
       .catch((error) => {
         alert(error.message);

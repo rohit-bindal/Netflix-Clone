@@ -6,7 +6,6 @@ import {
   getDocs,
   doc,
   addDoc,
-  getDoc,
   orderBy,
 } from "firebase/firestore/lite";
 import { db } from "../services/firebaseConfigs";
@@ -73,14 +72,13 @@ function PlansScreen() {
         cancel_url: window.location.origin,
       });
       const d = await getDocs(query(collRef));
-      let sessionId = '';
-      d.forEach(async (doc)=>{
+      let sessionId = "";
+      d.forEach(async (doc) => {
         const data = doc.data();
-        if(data.price === priceId && data.sessionId){
-          sessionId=data.sessionId;
+        if (data.price === priceId && data.sessionId) {
+          sessionId = data.sessionId;
         }
-      }
-        );
+      });
       if (sessionId) {
         const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
         stripe.redirectToCheckout({ sessionId });
