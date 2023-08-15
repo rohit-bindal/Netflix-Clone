@@ -21,7 +21,7 @@ function SignupScreen() {
       passwordRef.current.value
     )
       .then((authUser) => {
-        console.log(authUser);
+        //user is signed in
       })
       .catch((error) => {
         alert(error.message);
@@ -51,8 +51,10 @@ function SignupScreen() {
       <div className="signupScreen">
         <form>
           <h1>Sign In</h1>
-          <input ref={emailRef} type="email" placeholder="Email" />
-          <input ref={passwordRef} type="password" placeholder="Password" />
+          <div className="signupScreen__inputs">
+            <input ref={emailRef} type="email" placeholder="Email" />
+            <input ref={passwordRef} type="password" placeholder="Password" />
+          </div>
           <button type="submit" onClick={signIn}>
             {showPreLoader ? <PreLoader /> : "Sign In"}
           </button>

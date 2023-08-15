@@ -66,10 +66,11 @@ function PlansScreen() {
       setShowPreLoader(true);
       const docRef = doc(db, "customers", user.uid);
       const collRef = collection(docRef, "checkout_sessions");
+      if(priceId){
       await addDoc(collRef, {
         price: priceId,
-        success_url: window.location.origin,
-        cancel_url: window.location.origin,
+        success_url: 'https://netflix-clone-7864d.web.app/',
+        cancel_url: 'https://netflix-clone-7864d.web.app/',
       });
       const d = await getDocs(query(collRef));
       let sessionId = "";
@@ -83,6 +84,12 @@ function PlansScreen() {
         const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
         stripe.redirectToCheckout({ sessionId });
       }
+      else{
+        alert("Session could not be created. Please try again.");
+      }
+    }else{
+      alert("We couldn't process your request. Please try again.");
+    }
       setShowPreLoader(false);
     } catch (error) {
       alert(`${error.message}`);

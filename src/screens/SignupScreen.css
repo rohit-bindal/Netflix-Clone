@@ -29,13 +29,15 @@
     margin-bottom: 30px;
 }
 
-.signupScreen > form > input {
+.signupScreen__inputs > input {
+    padding: 5px 15px;
+    width: 100%;
+    box-sizing: border-box;
     outline-width: 0;
-    height: 40px;
+    height: 50px;
     margin-bottom: 14px;
     border-radius: 5px;
-    border: none;
-    padding: 5px 15px;
+    border: none;  
 }
 
 .signupScreen > form > button{
@@ -62,4 +64,22 @@
 .signupScreen__link:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+
+@media screen and (max-height: 415px){
+    .signupScreen{
+        top: 19% !important;
+        max-width: 80vw !important;
+        padding: 28px !important;
+    }
+    .signupScreen__inputs{
+        display: flex !important;
+        gap: 30px !important;
+    }
+    .signupScreen > form > button{
+        margin-top: 8px !important;
+    }
+    .signupScreen > form > h4 {
+        margin-top: 15px !important;
+    }
 }
