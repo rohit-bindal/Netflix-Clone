@@ -67,21 +67,27 @@ function PlansScreen() {
       setShowPreLoader(true);
       const docRef = doc(db, "customers", user.uid);
       const collRef = collection(docRef, "checkout_sessions");
-      const addedDocRef = await addDoc(collRef, {
+      await addDoc(collRef, {
         price: priceId,
         success_url: window.location.origin,
         cancel_url: window.location.origin,
       });
-      const newSessionDocSnapshot = await getDoc(addedDocRef);
-      const data = newSessionDocSnapshot.data();
-      const sessionId = data.sessionId;
+      const d = await getDocs(query(collRef));
+      let sessionId = '';
+      d.forEach(async (doc)=>{
+        const data = doc.data();
+        if(data.price === priceId && data.sessionId){
+          sessionId=data.sessionId;
+        }
+      }
+        );
       if (sessionId) {
         const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
         stripe.redirectToCheckout({ sessionId });
       }
       setShowPreLoader(false);
     } catch (error) {
-      alert("something went wrong! Please, Try again.");
+      alert(`${error.message}`);
       setShowPreLoader(false);
     }
   };

@@ -18,12 +18,18 @@
 }
 
 .banner__description{
-    width: 45rem;
+    width: 20rem;
     line-height: 1.3;
     padding-top: 1rem;
     font-size: 0.8rem;
     max-width: 360px;
     height: 80px;
+}
+
+@media screen and (min-width: 800px){
+    .banner__description{
+        width: 50rem !important;
+    }
 }
 
 .banner--fadeBottom{

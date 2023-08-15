@@ -5,33 +5,46 @@
 }
 
 .profileScreen__body{
+    margin: auto;
     display: flex;
     flex-direction: column;
     width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 5%;
+    padding-top: 12vh;
     max-height: 800px;
+    vertical-align: middle;
 }
 
 .profileScreen__body > h1 {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: 400;
     border-bottom: 1px solid #282c2d;
     margin-bottom: 20px;
 }
 
+@media screen and (min-width: 800px){
 .profileScreen__info{
     display: flex;
+}
+
+.profileScreen__body > h1 {
+    font-size: 60px;
 }
 
 .profileScreen__info > img{
     height: 100px;
 }
 
+.profileScreen__body{
+    margin: auto;
+}
 .profileScreen__details {
     margin-left: 25px;
     flex: 1;
+}
+}
+
+.profileScreen__info > img{
+    height: 50px;
 }
 
 .profileScreen__details > h2 {
