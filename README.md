@@ -1,6 +1,6 @@
 ## [Netflix-Clone](https://netflix-clone-7864d.web.app/)
 
-A feature-rich website offering categorized series display, robust authentication, and seamless payment integration for various subscription tiers.
+A feature-rich **responsive** website offering categorized series display, robust authentication, and seamless payment integration for various subscription tiers.
 
 <b>Tech Stack:</b> ReactJS | Redux | CSS | Firebase-Authentication | Firebase-Firestore | Stripe | TMDB 
 
