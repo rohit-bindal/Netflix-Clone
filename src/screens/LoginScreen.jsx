@@ -4,6 +4,18 @@ import SignupScreen from "./SignupScreen";
 
 function LoginScreen() {
   const [signIn, setSignIn] = useState(false);
+  const [email, setEmail] = useState(null);
+
+  const getStarted = (e) => {
+    e.preventDefault();
+
+    if (email == null) {
+      alert("Please enter your email or click Sign In.");
+    } else {
+      setSignIn(true);
+    }
+  };
+
   return (
     <div className="loginScreen">
       <div className="loginScreen__background">
@@ -29,7 +41,7 @@ function LoginScreen() {
       </div>
 
       {signIn ? (
-        <SignupScreen />
+        <SignupScreen email={email} />
       ) : (
         <div className="loginScreen__body">
           <>
@@ -41,11 +53,15 @@ function LoginScreen() {
             </h3>
             <div className="loginScreen__input">
               <form>
-                <input type="email" placeholder="Email Address" />
-                <button
-                  onClick={() => {
-                    setSignIn(true);
+                <input
+                  onChange={(e) => {
+                    setEmail(e.target.value);
                   }}
+                  type="email"
+                  placeholder="Email Address"
+                />
+                <button
+                  onClick={getStarted}
                   className="loginScreen__getStarted"
                 >
                   GET STARTED

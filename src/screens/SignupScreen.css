@@ -33,7 +33,7 @@
     padding: 5px 15px;
     width: 100%;
     box-sizing: border-box;
-    outline-width: 0;
+    outline: none;
     height: 50px;
     margin-bottom: 14px;
     border-radius: 5px;

@@ -7,6 +7,8 @@ import {
   doc,
   addDoc,
   orderBy,
+  serverTimestamp,
+  where,
 } from "firebase/firestore/lite";
 import { db } from "../services/firebaseConfigs";
 import { useSelector } from "react-redux";
@@ -66,30 +68,36 @@ function PlansScreen() {
       setShowPreLoader(true);
       const docRef = doc(db, "customers", user.uid);
       const collRef = collection(docRef, "checkout_sessions");
-      if(priceId){
-      await addDoc(collRef, {
-        price: priceId,
-        success_url: 'https://netflix-clone-7864d.web.app/',
-        cancel_url: 'https://netflix-clone-7864d.web.app/',
-      });
-      const d = await getDocs(query(collRef));
-      let sessionId = "";
-      d.forEach(async (doc) => {
-        const data = doc.data();
-        if (data.price === priceId && data.sessionId) {
-          sessionId = data.sessionId;
+      if (priceId) {
+        await addDoc(collRef, {
+          price: priceId,
+          success_url: "https://netflix-clone-7864d.web.app/",
+          cancel_url: "https://netflix-clone-7864d.web.app/",
+          timestamp: serverTimestamp(),
+        });
+        const now = new Date();
+        const twentyThreeHoursAgo = new Date(
+          now.getTime() - 23 * 60 * 60 * 1000
+        );
+        const d = await getDocs(
+          query(collRef, where("timestamp", ">=", twentyThreeHoursAgo))
+        );
+        let sessionId = "";
+        d.forEach(async (doc) => {
+          const data = doc.data();
+          if (data.price === priceId && data.sessionId) {
+            sessionId = data.sessionId;
+          }
+        });
+        if (sessionId) {
+          const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+          stripe.redirectToCheckout({ sessionId });
+        } else {
+          alert("Session could not be created. Please try again.");
         }
-      });
-      if (sessionId) {
-        const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
-        stripe.redirectToCheckout({ sessionId });
+      } else {
+        alert("We couldn't process your request. Please try again.");
       }
-      else{
-        alert("Session could not be created. Please try again.");
-      }
-    }else{
-      alert("We couldn't process your request. Please try again.");
-    }
       setShowPreLoader(false);
     } catch (error) {
       alert(`${error.message}`);

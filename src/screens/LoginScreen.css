@@ -71,7 +71,7 @@
 
 .loginScreen__input > form > input{
     padding: 10px;
-    outline-width: 0;
+    outline: none;
     height: 30px;
     width: 100%;
     border: none;
